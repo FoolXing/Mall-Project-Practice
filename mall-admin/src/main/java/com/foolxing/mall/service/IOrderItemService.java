@@ -1,6 +1,5 @@
 package com.foolxing.mall.service;
 
-import com.foolxing.mall.pojo.OrderItem;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**

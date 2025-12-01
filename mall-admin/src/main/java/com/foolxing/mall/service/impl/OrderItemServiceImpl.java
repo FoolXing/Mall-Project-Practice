@@ -1,6 +1,5 @@
 package com.foolxing.mall.service.impl;
 
-import com.foolxing.mall.pojo.OrderItem;
 import com.foolxing.mall.mapper.OrderItemMapper;
 import com.foolxing.mall.service.IOrderItemService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;

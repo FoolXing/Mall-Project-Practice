@@ -1,14 +1,11 @@
 package com.foolxing.mall.pojo;
 
-import com.baomidou.mybatisplus.annotation.FieldFill;
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableLogic;
-import java.io.Serializable;
-import java.util.Date;
+import com.baomidou.mybatisplus.annotation.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+
+import java.io.Serializable;
+import java.util.Date;
 
 /**
  * <p>
@@ -20,7 +17,7 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class User implements Serializable {
+public class Admin implements Serializable {
 
 
     /**
@@ -39,6 +36,9 @@ public class User implements Serializable {
      */
     private String password;
 
+    /**
+     * 头像
+     */
     private String avatar;
 
     private String email;
@@ -46,14 +46,9 @@ public class User implements Serializable {
     private String phone;
 
     /**
-     * 找回密码问题
+     * 角色0-管理员,1-普通用户
      */
-    private String question;
-
-    /**
-     * 找回密码答案
-     */
-    private String answer;
+    private Integer role;
 
     /**
      * 状态（1：正常 0：停用）

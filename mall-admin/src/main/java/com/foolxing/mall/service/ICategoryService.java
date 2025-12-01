@@ -1,6 +1,5 @@
 package com.foolxing.mall.service;
 
-import com.foolxing.mall.pojo.Category;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**

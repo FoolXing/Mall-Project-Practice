@@ -1,7 +1,6 @@
 package com.foolxing.mall.controller;
 
 
-import com.foolxing.mall.pojo.Admin;
 import com.foolxing.mall.service.IAdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;

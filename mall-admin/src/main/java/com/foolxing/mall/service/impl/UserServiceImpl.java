@@ -1,6 +1,5 @@
 package com.foolxing.mall.service.impl;
 
-import com.foolxing.mall.pojo.User;
 import com.foolxing.mall.mapper.UserMapper;
 import com.foolxing.mall.service.IUserService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;

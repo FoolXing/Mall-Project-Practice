@@ -1,14 +1,11 @@
 package com.foolxing.mall.pojo;
 
-import com.baomidou.mybatisplus.annotation.FieldFill;
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableLogic;
-import java.io.Serializable;
-import java.util.Date;
+import com.baomidou.mybatisplus.annotation.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+
+import java.io.Serializable;
+import java.util.Date;
 
 /**
  * <p>
@@ -20,38 +17,25 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class Admin implements Serializable {
+public class Category implements Serializable {
 
 
     /**
-     * 用户表id
+     * 类别Id
      */
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
     /**
-     * 用户名
+     * 父类别id当id=0时说明是根节点,一级类别
+     */
+    @TableField("parent_id")
+    private Integer parentId;
+
+    /**
+     * 类别名称
      */
     private String name;
-
-    /**
-     * 用户密码，MD5加密
-     */
-    private String password;
-
-    /**
-     * 头像
-     */
-    private String avatar;
-
-    private String email;
-
-    private String phone;
-
-    /**
-     * 角色0-管理员,1-普通用户
-     */
-    private Integer role;
 
     /**
      * 状态（1：正常 0：停用）

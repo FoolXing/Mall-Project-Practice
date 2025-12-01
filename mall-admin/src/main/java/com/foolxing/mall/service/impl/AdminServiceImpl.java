@@ -1,6 +1,5 @@
 package com.foolxing.mall.service.impl;
 
-import com.foolxing.mall.pojo.Admin;
 import com.foolxing.mall.mapper.AdminMapper;
 import com.foolxing.mall.service.IAdminService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;

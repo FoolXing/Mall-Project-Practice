@@ -1,6 +1,5 @@
 package com.foolxing.mall.service.impl;
 
-import com.foolxing.mall.pojo.Category;
 import com.foolxing.mall.mapper.CategoryMapper;
 import com.foolxing.mall.service.ICategoryService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
