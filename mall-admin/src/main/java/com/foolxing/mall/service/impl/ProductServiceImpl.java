@@ -1,6 +1,7 @@
 package com.foolxing.mall.service.impl;
 
 import com.foolxing.mall.mapper.ProductMapper;
+import com.foolxing.mall.pojo.Product;
 import com.foolxing.mall.service.IProductService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;

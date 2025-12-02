@@ -1,6 +1,7 @@
 package com.foolxing.mall.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.foolxing.mall.pojo.Category;
 
 /**
  * <p>

@@ -1,6 +1,9 @@
 package com.foolxing.mall.service;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.foolxing.mall.pojo.Admin;
+import com.foolxing.mall.pojo.query.AdminQuery;
 
 /**
  * <p>
@@ -12,4 +15,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface IAdminService extends IService<Admin> {
 
+    IPage<Admin> list(AdminQuery adminQuery);
 }
