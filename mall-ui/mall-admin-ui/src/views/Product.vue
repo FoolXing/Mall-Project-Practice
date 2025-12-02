@@ -142,6 +142,14 @@
         //在请求头里面携带token传递到后台
         Authorization: tokenStore.token
     })
+
+    import WangEditor from "@/components/WangEditor.vue";
+    //富文本编辑器
+    const onEditorChange = (detail) => {
+        console.log(detail)
+        product.value.detail = detail
+    }
+
 </script>
 
 <template>
@@ -193,7 +201,7 @@
     </el-card>
 
     <!--添加、编辑弹出框-->
-    <el-dialog v-model="dialogFormVisible" :title="title" width="50%" :lock-scroll="false">
+    <el-dialog v-model="dialogFormVisible" :title="title" width="70%" :lock-scroll="false">
         <el-form :model="product">
             <el-form-item label="名字" :label-width="60">
                 <el-input v-model="product.name" autocomplete="off" />
@@ -228,15 +236,15 @@
                 </el-upload>
             </el-form-item>
             <el-form-item label="商品详情" :label-width="70">
-                <el-input v-model="product.detail" autocomplete="off" />
+<!--                <el-input v-model="product.detail" autocomplete="off" />-->
+                <WangEditor :initValue="product.detail" @getEditorContent="onEditorChange"
+                            v-if="dialogFormVisible" @close="dialogFormVisible = false"></WangEditor>
             </el-form-item>
         </el-form>
         <template #footer>
             <div class="dialog-footer">
                 <el-button @click="dialogFormVisible = false">取消</el-button>
-                <el-button type="primary" @click="addOrUpdate">
-                    确认
-                </el-button>
+                <el-button type="primary" @click="addOrUpdate">确认</el-button>
             </div>
         </template>
     </el-dialog>
