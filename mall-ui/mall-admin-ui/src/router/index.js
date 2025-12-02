@@ -5,6 +5,7 @@ import {createRouter, createWebHistory} from 'vue-router'
 import Layout from '@/views/Layout.vue'
 import Login from '@/views/Login.vue'
 import Admin from '@/views/Admin.vue'
+import Product from "@/views/Product.vue";
 
 //创建路由器
 const router = createRouter({
@@ -13,7 +14,8 @@ const router = createRouter({
         {path: '/login', component: Login},
         {
             path: '/', component: Layout, children: [
-                {path: '/admin', component: Admin}
+                {path: '/admin', component: Admin},
+                {path: '/product', component: Product}
             ]
         }
     ]

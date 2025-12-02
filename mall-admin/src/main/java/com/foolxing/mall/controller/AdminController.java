@@ -33,11 +33,6 @@ public class AdminController {
     @Autowired
     private IAdminService adminService;
 
-    //Restful    GET(查找)、POST(添加)、DELETE(删除)、PUT(修改)
-    //@RequestMapping("/list")
-    //@RequestMapping(value = "/list", method = {RequestMethod.GET, RequestMethod.POST})
-    //@RequestMapping(value = "/list", method = RequestMethod.GET)
-    //@RequestMapping(value = "/list", method = RequestMethod.GET)
     @GetMapping("/list")
     public Result list(AdminQuery adminQuery) {
         //PageInfo pageInfo = adminService.list(adminQuery);

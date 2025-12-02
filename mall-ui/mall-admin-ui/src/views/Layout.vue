@@ -147,11 +147,11 @@
 					</el-icon>
 					<span>管理员管理</span>
 				</el-menu-item>
-				<el-menu-item index="/student">
+				<el-menu-item index="/product">
 					<el-icon>
 						<Promotion/>
 					</el-icon>
-					<span>学生管理</span>
+					<span>商品管理</span>
 				</el-menu-item>
                 <el-menu-item index="/banji">
                     <el-icon>

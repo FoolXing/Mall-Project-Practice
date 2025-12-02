@@ -2,6 +2,7 @@ package com.foolxing.mall.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.foolxing.mall.pojo.Product;
+import org.springframework.stereotype.Repository;
 
 /**
  * <p>
@@ -11,6 +12,7 @@ import com.foolxing.mall.pojo.Product;
  * @author FoolXing
  * @since 2025-12-01
  */
+@Repository
 public interface ProductMapper extends BaseMapper<Product> {
 
 }

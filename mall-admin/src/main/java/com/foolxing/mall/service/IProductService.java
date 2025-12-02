@@ -1,7 +1,9 @@
 package com.foolxing.mall.service;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.foolxing.mall.pojo.Product;
+import com.foolxing.mall.pojo.query.ProductQuery;
 
 /**
  * <p>
@@ -13,4 +15,5 @@ import com.foolxing.mall.pojo.Product;
  */
 public interface IProductService extends IService<Product> {
 
+    IPage<Product> list(ProductQuery productQuery);
 }
