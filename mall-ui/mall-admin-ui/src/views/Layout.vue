@@ -153,6 +153,12 @@
 					</el-icon>
 					<span>商品管理</span>
 				</el-menu-item>
+				<el-menu-item index="/category">
+					<el-icon>
+						<Promotion/>
+					</el-icon>
+					<span>分类管理</span>
+				</el-menu-item>
                 <el-menu-item index="/banji">
                     <el-icon>
                         <Promotion/>

@@ -150,6 +150,23 @@
         product.value.detail = detail
     }
 
+    //分类
+    import categoryApi from "@/api/category.js";
+    const selectCategory=ref(null);
+    const topCategoryList=ref({});
+    categoryApi.selectTopCategoryList().then(result => {
+        if (result.code == 0) {
+            topCategoryList.value = result.data
+        }
+    })
+    const secondCategoryList = ref({})
+    const selectChange = (value) => {
+      categoryApi.selectSecondCategoryListByParentId(value).then(result => {
+          if (result.code == 0) {
+              secondCategoryList.value = result.data
+          }
+      })
+    }
 </script>
 
 <template>
@@ -173,6 +190,7 @@
             <el-table-column fixed prop="id" label="ID"/>
             <el-table-column prop="name" label="名字"/>
             <el-table-column prop="categoryId" label="分类id"/>
+            <el-table-column prop="categoryName" label="分类名称"/>
             <el-table-column prop="subtitle" label="商品副标题"/>
             <el-table-column prop="price" label="价格"/>
             <el-table-column prop="stock" label="库存数量"/>
@@ -207,7 +225,23 @@
                 <el-input v-model="product.name" autocomplete="off" />
             </el-form-item>
             <el-form-item label="分类id" :label-width="60">
-                <el-input v-model="product.categoryId" autocomplete="off" />
+<!--                <el-input v-model="product.categoryId" autocomplete="off" />-->
+                <el-select v-model="selectCategory" clearable placeholder="请选择一级分类" @change="selectChange" style="width: 200px">
+                    <el-option
+                        v-for="category in topCategoryList"
+                        :key="category.id"
+                        :label="category.name"
+                        :value="category.id"
+                    />
+                </el-select>
+                <el-select v-model="product.categoryId" clearable placeholder="请选择二级分类" style="width: 200px">
+                    <el-option
+                        v-for="category in secondCategoryList"
+                        :key="category.id"
+                        :label="category.name"
+                        :value="category.id"
+                    />
+                </el-select>
             </el-form-item>
             <el-form-item label="商品副标题" :label-width="90">
                 <el-input v-model="product.subtitle" autocomplete="off" />

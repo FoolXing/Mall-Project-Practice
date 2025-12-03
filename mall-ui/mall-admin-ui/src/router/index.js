@@ -6,6 +6,7 @@ import Layout from '@/views/Layout.vue'
 import Login from '@/views/Login.vue'
 import Admin from '@/views/Admin.vue'
 import Product from "@/views/Product.vue";
+import Category from "@/views/Category.vue";
 
 //创建路由器
 const router = createRouter({
@@ -15,7 +16,8 @@ const router = createRouter({
         {
             path: '/', component: Layout, children: [
                 {path: '/admin', component: Admin},
-                {path: '/product', component: Product}
+                {path: '/product', component: Product},
+                {path: '/category', component: Category}
             ]
         }
     ]

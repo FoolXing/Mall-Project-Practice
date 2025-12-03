@@ -4,6 +4,7 @@ package com.foolxing.mall.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.foolxing.mall.pojo.Product;
+import com.foolxing.mall.pojo.VO.ProductVO;
 import com.foolxing.mall.pojo.query.ProductQuery;
 import com.foolxing.mall.service.IProductService;
 import com.foolxing.mall.util.JwtUtil;
@@ -32,7 +33,7 @@ public class ProductController {
     @GetMapping("/list")
     public Result list(ProductQuery productQuery) {
         //PageInfo pageInfo = productService.list(productQuery);
-        IPage<Product> page = productService.list(productQuery);
+        IPage<ProductVO> page = productService.list(productQuery);
         return Result.ok(page);
     }
 

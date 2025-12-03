@@ -8,6 +8,7 @@ import com.foolxing.mall.mapper.ProductMapper;
 import com.foolxing.mall.mapper.ProductMapper;
 import com.foolxing.mall.pojo.Product;
 import com.foolxing.mall.pojo.Product;
+import com.foolxing.mall.pojo.VO.ProductVO;
 import com.foolxing.mall.pojo.query.ProductQuery;
 import com.foolxing.mall.pojo.query.ProductQuery;
 import com.foolxing.mall.service.IProductService;
@@ -29,11 +30,9 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product> impl
     private ProductMapper productMapper;
 
     @Override
-    public IPage<Product> list(ProductQuery productQuery) {
-        IPage<Product> page = new Page<>(productQuery.getPage(), productQuery.getLimit());
-        QueryWrapper<Product> queryWrapper = new QueryWrapper<>();
-        queryWrapper.like(!ObjectUtils.isEmpty(productQuery.getName()), "name", productQuery.getName());
-        productMapper.selectPage(page, queryWrapper);
-        return page;
+    public IPage<ProductVO> list(ProductQuery productQuery) {
+        IPage<ProductVO> page = new Page<>(productQuery.getPage(), productQuery.getLimit());
+        IPage<ProductVO> list = productMapper.list(page, productQuery);
+        return list;
     }
 }
