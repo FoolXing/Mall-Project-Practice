@@ -3,6 +3,7 @@ package com.foolxing.mall.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.foolxing.mall.annotation.MyLog;
 import com.foolxing.mall.pojo.Admin;
 import com.foolxing.mall.pojo.Admin;
 import com.foolxing.mall.pojo.dto.AdminPasswordDTO;
@@ -33,6 +34,7 @@ public class AdminController {
     @Autowired
     private IAdminService adminService;
 
+    @MyLog(module = "管理员模块")
     @GetMapping("/list")
     public Result list(AdminQuery adminQuery) {
         //PageInfo pageInfo = adminService.list(adminQuery);

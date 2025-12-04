@@ -3,6 +3,7 @@ package com.foolxing.mall.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.foolxing.mall.annotation.MyLog;
 import com.foolxing.mall.pojo.Product;
 import com.foolxing.mall.pojo.VO.ProductVO;
 import com.foolxing.mall.pojo.query.ProductQuery;
@@ -30,6 +31,7 @@ public class ProductController {
     @Autowired
     private IProductService productService;
 
+    @MyLog(module = "商品模块")
     @GetMapping("/list")
     public Result list(ProductQuery productQuery) {
         //PageInfo pageInfo = productService.list(productQuery);
