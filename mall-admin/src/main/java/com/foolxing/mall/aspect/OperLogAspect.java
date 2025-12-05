@@ -1,9 +1,6 @@
 package com.foolxing.mall.aspect;
 
-<<<<<<< HEAD
-=======
 import cn.hutool.core.collection.CollectionUtil;
->>>>>>> 2b733ab (修复了一个小问题，增加自定义注解的操作日志，方便对单独的方法进行监控)
 import cn.hutool.core.convert.Convert;
 import cn.hutool.core.util.ArrayUtil;
 import cn.hutool.core.util.StrUtil;
@@ -12,15 +9,10 @@ import cn.hutool.db.PageResult;
 import cn.hutool.extra.servlet.JakartaServletUtil;
 import cn.hutool.http.useragent.UserAgent;
 import cn.hutool.http.useragent.UserAgentUtil;
-<<<<<<< HEAD
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-=======
 import com.baomidou.mybatisplus.core.toolkit.ObjectUtils;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.foolxing.mall.annotation.MyLog;
->>>>>>> 2b733ab (修复了一个小问题，增加自定义注解的操作日志，方便对单独的方法进行监控)
 import com.foolxing.mall.pojo.OperLog;
 import com.foolxing.mall.service.IOperLogService;
 import com.foolxing.mall.util.Result;
@@ -29,13 +21,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.log4j.Log4j2;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.*;
-<<<<<<< HEAD
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
-
-=======
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -44,7 +29,6 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import java.lang.reflect.Method;
->>>>>>> 2b733ab (修复了一个小问题，增加自定义注解的操作日志，方便对单独的方法进行监控)
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
@@ -82,12 +66,8 @@ public class OperLogAspect {
     /**
      * 日志切点
      */
-<<<<<<< HEAD
-    @Pointcut("execution(public * com.foolxing.mall.controller.*.*(..))")
-=======
 //    @Pointcut("execution(public * com.foolxing.mall.controller.*.*(..))")
     @Pointcut("@annotation(com.foolxing.mall.annotation.MyLog)")
->>>>>>> 2b733ab (修复了一个小问题，增加自定义注解的操作日志，方便对单独的方法进行监控)
     public void operLogAspect() {
     }
 
@@ -104,12 +84,6 @@ public class OperLogAspect {
         OperLog operLog = new OperLog();
 
         Map<String, Object> map = ThreadLocalUtil.get();
-<<<<<<< HEAD
-        Integer id = (Integer) map.get("id");
-        String name = (String) map.get("name");
-        operLog.setAdminId(id);
-        operLog.setAdminName(name);
-=======
         if (!CollectionUtils.isEmpty(map)) {
             Integer id = (Integer) map.get("id");
             String name = (String) map.get("name");
@@ -123,7 +97,6 @@ public class OperLogAspect {
         if (!ObjectUtils.isEmpty(myLog) && !ObjectUtils.isEmpty(myLog.module())) {
             operLog.setModule(myLog.module());
         }
->>>>>>> 2b733ab (修复了一个小问题，增加自定义注解的操作日志，方便对单独的方法进行监控)
 
         operLog.setStartTime(new Date());
         operLog.setRequestUri(URLUtil.getPath(request.getRequestURI()));

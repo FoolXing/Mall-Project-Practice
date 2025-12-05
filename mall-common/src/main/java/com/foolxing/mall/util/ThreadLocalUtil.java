@@ -1,10 +1,7 @@
 package com.foolxing.mall.util;
 
 @SuppressWarnings("all")
-<<<<<<< HEAD
-=======
 
->>>>>>> 2b733ab (修复了一个小问题，增加自定义注解的操作日志，方便对单独的方法进行监控)
 public class ThreadLocalUtil {
     //提供ThreadLocal对象,
     private static final ThreadLocal THREAD_LOCAL = new ThreadLocal();
