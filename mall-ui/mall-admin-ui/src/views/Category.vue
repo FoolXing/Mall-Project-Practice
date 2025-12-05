@@ -178,7 +178,7 @@
     <!--添加、编辑弹出框-->
     <el-dialog v-model="dialogFormVisible" :title="title" width="60%" :lock-scroll="false">
         <el-form :model="category">
-            <el-form-item label="类别名称" :label-width="60">
+            <el-form-item label="类别名称" :label-width="70">
                 <el-input v-model="category.name" autocomplete="off" />
             </el-form-item>
             <el-form-item label="父类别id" :label-width="90">

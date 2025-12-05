@@ -10,6 +10,9 @@
             <if test="productQuery.name!=null and productQuery.name!=''">
                 AND p.name LIKE concat('%',#{productQuery.name},'%')
             </if>
+            <if test="productQuery.categoryId!=null">
+                AND p.category_id = #{productQuery.categoryId}
+            </if>
         </where>
     </select>
 </mapper>

@@ -10,6 +10,7 @@
     //分页信息和搜索条件
     const productQuery = reactive({
         name: '',
+        categoryId:'',
         page: 1,
         limit: 10
     })
@@ -161,11 +162,23 @@
     })
     const secondCategoryList = ref({})
     const selectChange = (value) => {
-      categoryApi.selectSecondCategoryListByParentId(value).then(result => {
-          if (result.code == 0) {
-              secondCategoryList.value = result.data
-          }
-      })
+      productQuery.categoryId=''
+      product.categoryId=''
+      if (value) {
+          categoryApi.selectSecondCategoryListByParentId(value).then(result => {
+              if (result.code == 0) {
+                  secondCategoryList.value = result.data
+              }
+          })
+      }
+    }
+
+    //详情弹窗
+    const dialogDetailVisible = ref(false)
+    const detail = ref('')
+    const showDetail = (data) => {
+        dialogDetailVisible.value = true
+        detail.value = data
     }
 </script>
 
@@ -180,6 +193,26 @@
         <el-form :inline="true">
             <el-form-item label="名字">
                 <el-input v-model="productQuery.name" placeholder="请输入名字" clearable/>
+            </el-form-item>
+            <el-form-item>
+                <el-select v-model="selectCategory" clearable placeholder="请选择一级分类" @change="selectChange" style="width: 200px">
+                    <el-option
+                            v-for="category in topCategoryList"
+                            :key="category.id"
+                            :label="category.name"
+                            :value="category.id"
+                    />
+                </el-select>
+            </el-form-item>
+            <el-form-item>
+                <el-select v-model="productQuery.categoryId" clearable placeholder="请选择二级分类"  style="width: 200px">
+                    <el-option
+                            v-for="category in secondCategoryList"
+                            :key="category.id"
+                            :label="category.name"
+                            :value="category.id"
+                    />
+                </el-select>
             </el-form-item>
             <el-form-item>
                 <el-button type="primary" @click="onSearch">搜索</el-button>
@@ -200,10 +233,11 @@
                     <img :src="scope.row.mainImage" style="max-height: 40px; max-width: 120px;"/>
                 </template>
             </el-table-column>
-            <el-table-column fixed="right" label="Operations">
+            <el-table-column align="center" width="200px" fixed="right" label="Operations">
                 <template #default="{ row }">
-                    <el-button type="primary" @click="showUpdateDialog(row.id)">编辑</el-button>
-                    <el-button type="danger" @click="deleteById(row.id)">删除</el-button>
+                    <el-button size="small" type="primary" @click="showUpdateDialog(row.id)">编辑</el-button>
+                    <el-button size="small" type="danger" @click="deleteById(row.id)">删除</el-button>
+                    <el-button size="small" type="success" @click="showDetail(row.detail)">详情</el-button>
                 </template>
             </el-table-column>
         </el-table>
@@ -219,7 +253,7 @@
     </el-card>
 
     <!--添加、编辑弹出框-->
-    <el-dialog v-model="dialogFormVisible" :title="title" width="70%" :lock-scroll="false">
+    <el-dialog v-model="dialogFormVisible" :title="title" width="40%" :lock-scroll="false">
         <el-form :model="product">
             <el-form-item label="名字" :label-width="60">
                 <el-input v-model="product.name" autocomplete="off" />
@@ -247,10 +281,12 @@
                 <el-input v-model="product.subtitle" autocomplete="off" />
             </el-form-item>
             <el-form-item label="价格" :label-width="60">
-                <el-input v-model="product.price" autocomplete="off" />
+<!--                <el-input v-model="product.price" autocomplete="off" />-->
+                <el-input-number v-model="product.price":min="1"max="10000"/>
             </el-form-item>
             <el-form-item label="库存数量" :label-width="70">
-                <el-input v-model="product.stock" autocomplete="off" />
+<!--                <el-input v-model="product.stock" autocomplete="off" />-->
+                <el-input-number v-model="product.stock":min="1"max="10000"/>
             </el-form-item>
             <el-form-item label="商品状态" :label-width="70">
                 <el-input v-model="product.status" autocomplete="off" />
@@ -279,6 +315,15 @@
             <div class="dialog-footer">
                 <el-button @click="dialogFormVisible = false">取消</el-button>
                 <el-button type="primary" @click="addOrUpdate">确认</el-button>
+            </div>
+        </template>
+    </el-dialog>
+
+    <el-dialog v-model="dialogDetailVisible" width="60%" :lock-scroll="false">
+        <div v-html="detail"></div>
+        <template #footer>
+            <div class="dialog-footer">
+                <el-button @click="dialogDetailVisible = false">关闭</el-button>
             </div>
         </template>
     </el-dialog>

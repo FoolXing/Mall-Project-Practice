@@ -159,7 +159,7 @@
 					</el-icon>
 					<span>分类管理</span>
 				</el-menu-item>
-                <el-menu-item index="/banji">
+<!--                <el-menu-item index="/banji">
                     <el-icon>
                         <Promotion/>
                     </el-icon>
@@ -196,7 +196,7 @@
 						</el-icon>
 						<span>重置密码</span>
 					</el-menu-item>
-				</el-sub-menu>
+				</el-sub-menu>-->
 			</el-menu>
 		</el-aside>
 		<!-- 右侧主区域 -->
