@@ -18,4 +18,8 @@ import org.apache.ibatis.annotations.Param;
 public interface IProductService extends IService<Product> {
 
     IPage<ProductVO> list(ProductQuery productQuery);
+
+    Product selectById(Integer id);
+
+    void update(Product product);
 }

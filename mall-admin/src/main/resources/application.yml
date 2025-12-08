@@ -9,6 +9,11 @@ spring:
       host: 127.0.0.1
       port: 6379
       database: 0
+  cache:
+    type: redis
+    redis:
+      time-to-live: 3600000
+      cache-null-values: true
 mybatis-plus:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl #mybatis????????????

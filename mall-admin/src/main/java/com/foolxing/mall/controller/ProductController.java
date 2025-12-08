@@ -63,13 +63,13 @@ public class ProductController {
 
     @GetMapping("/selectById/{id}")
     public Result selectById(@PathVariable Integer id) {
-        Product product = productService.getById(id);
+        Product product = productService.selectById(id);
         return Result.ok(product);
     }
 
     @PutMapping("/update")
     public Result update(@RequestBody Product product) {
-        productService.updateById(product);
+        productService.update(product);
         return Result.ok("更新成功");
     }
     
