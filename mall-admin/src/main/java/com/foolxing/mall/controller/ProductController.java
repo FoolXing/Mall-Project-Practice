@@ -34,7 +34,6 @@ public class ProductController {
     @MyLog(module = "商品模块")
     @GetMapping("/list")
     public Result list(ProductQuery productQuery) {
-        //PageInfo pageInfo = productService.list(productQuery);
         IPage<ProductVO> page = productService.list(productQuery);
         return Result.ok(page);
     }

@@ -8,10 +8,13 @@ import com.foolxing.mall.pojo.query.CategoryQuery;
 import com.foolxing.mall.service.ICategoryService;
 import com.foolxing.mall.util.Result;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -26,13 +29,19 @@ import java.util.List;
 public class CategoryController {
     @Autowired
     private ICategoryService categoryService;
+    private Map<String,Object> map = new HashMap<>();
 
     @GetMapping("/list")
     public Result list(CategoryQuery categoryQuery) {
-        //PageInfo pageInfo = categoryService.list(categoryQuery);
-        IPage<Category> page = categoryService.list(categoryQuery);
+        IPage<Category> page = (IPage<Category>) map.get("page");
+        if (ObjectUtils.isEmpty(page)) {
+            page = categoryService.list(categoryQuery);
+            map.put("page",page);
+        }
         return Result.ok(page);
     }
+
+
 
     // /category/deleteById?id=1
     // /category/deleteById/1

@@ -13,6 +13,8 @@ import com.foolxing.mall.service.IAdminService;
 import com.foolxing.mall.util.JwtUtil;
 import com.foolxing.mall.util.Result;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
@@ -33,12 +35,18 @@ import java.util.Map;
 public class AdminController {
     @Autowired
     private IAdminService adminService;
+    @Autowired
+    private RedisTemplate redisTemplate;
 
     @MyLog(module = "管理员模块")
     @GetMapping("/list")
     public Result list(AdminQuery adminQuery) {
         //PageInfo pageInfo = adminService.list(adminQuery);
-        IPage<Admin> page = adminService.list(adminQuery);
+        IPage<Admin> page = (IPage<Admin>) redisTemplate.opsForValue().get("page");
+        if (ObjectUtils.isEmpty(page)) {
+            page = adminService.list(adminQuery);
+            redisTemplate.opsForValue().set("page",page);
+        }
         return Result.ok(page);
     }
 
