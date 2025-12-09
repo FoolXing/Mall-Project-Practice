@@ -1,4 +1,5 @@
 package com.foolxing.mall.controller;
+import com.foolxing.mall.config.AliOSSUtil;
 import com.foolxing.mall.util.Result;
 import com.foolxing.mall.util.Result;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,12 +23,18 @@ public class UploadController {
         String extension = filename.substring(filename.lastIndexOf("."));
         //06baaff712554d4dabcd0a60933c1661.png
         String newFilename = uuid + extension;
-        String filePath = "D:\\mypic\\" + newFilename;
+        /*String filePath = "D:\\mypic\\" + newFilename;
         try {
             file.transferTo(new File(filePath));
         } catch (IOException e) {
             throw new RuntimeException(e);
+        }*/
+        String url = "";
+        try {
+            url = AliOSSUtil.uploadFile(newFilename,file.getInputStream());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
-        return Result.ok("上传成功", newFilename);
+        return Result.ok("上传成功", url);
     }
 }

@@ -133,7 +133,8 @@
     }
 
     const handleAvatarSuccess = (result, uploadFile) => {
-        product.value.mainImage = '/api/pic/' + result.data
+        // product.value.mainImage = '/api/pic/' + result.data
+        product.value.mainImage = + result.data
     }
 
     import {useTokenStore} from "@/store/token.js";

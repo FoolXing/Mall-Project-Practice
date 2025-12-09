@@ -1,148 +1,149 @@
 <script setup>
-    import adminApi  from "@/api/admin.js";
-    import {ref, reactive} from "vue";
-    //图片上传
-    import {Plus} from '@element-plus/icons-vue'
-    import {ElMessage, ElMessageBox} from "element-plus";
-    //表格数据
-    const list = ref([])
-    const total = ref(0)
-    //分页信息和搜索条件
-    const adminQuery = reactive({
-        name: '',
-        email: '',
-        page: 1,
-        limit: 10
-    })
-    /*adminApi.list(adminQuery).then(result => {
+import adminApi  from "@/api/admin.js";
+import {ref, reactive} from "vue";
+//图片上传
+import {Plus} from '@element-plus/icons-vue'
+import {ElMessage, ElMessageBox} from "element-plus";
+//表格数据
+const list = ref([])
+const total = ref(0)
+//分页信息和搜索条件
+const adminQuery = reactive({
+    name: '',
+    email: '',
+    page: 1,
+    limit: 10
+})
+/*adminApi.list(adminQuery).then(result => {
+    if (result.code == 0) {
+        list.value = result.data.list
+        total.value = result.data.total
+    }
+})*/
+
+const loadData = () => {
+    adminApi.list(adminQuery).then(result => {
         if (result.code == 0) {
-            list.value = result.data.list
+            list.value = result.data.records
             total.value = result.data.total
         }
-    })*/
-
-    const loadData = () => {
-        adminApi.list(adminQuery).then(result => {
-            if (result.code == 0) {
-                list.value = result.data.records
-                total.value = result.data.total
-            }
-        })
-    }
-    loadData()
-
-    const onSearch = () => {
-        adminQuery.page = 1
-        loadData()
-    }
-
-    //根据id删除
-    const deleteById = (id) => {
-        ElMessageBox.confirm(
-            '您确认要删除么?',
-            '警告',
-            {
-                confirmButtonText: '确认',
-                cancelButtonText: '取消',
-                type: 'warning',
-                lockScroll: false //防止抖动
-            }
-        ).then(() => {
-            adminApi.deleteById(id).then(result => {
-                if (result.code == 0) {
-                    ElMessage.success(result.msg)
-                    loadData()
-                } else {
-                    ElMessage.error(result.msg)
-                }
-            })
-        })
-    }
-
-    const ids = ref([])
-    const handleSelectionChange = (rows) => {
-        console.log(rows)
-        ids.value = rows.map(row => row.id)
-        console.log(ids.value)
-    }
-
-    const deleteAll = () => {
-        ElMessageBox.confirm(
-            '您确认要删除么?',
-            '警告',
-            {
-                confirmButtonText: '确认',
-                cancelButtonText: '取消',
-                type: 'warning',
-                lockScroll: false //防止抖动
-            }
-        ).then(() => {
-            adminApi.deleteAll(ids.value).then(result => {
-                if (result.code == 0) {
-                    ElMessage.success(result.msg)
-                    loadData()
-                } else {
-                    ElMessage.error(result.msg)
-                }
-            })
-        })
-    }
-
-    //添加、 编辑
-    const dialogFormVisible = ref(false)
-    const admin = ref({})
-    const title = ref('')
-
-    const showAddDialog = () => {
-        dialogFormVisible.value = true
-        title.value = '添加'
-        admin.value = {}
-    }
-
-    const showUpdateDialog = (id) => {
-        dialogFormVisible.value = true
-        title.value = '编辑'
-        admin.value = {}
-        adminApi.selectById(id).then(result => {
-            admin.value = result.data
-        })
-    }
-    const addOrUpdate = () => {
-        if (admin.value.id) {//编辑
-            adminApi.update(admin.value).then(result => {
-                if (result.code == 0) {
-                    ElMessage.success(result.msg)
-                    dialogFormVisible.value = false
-                    loadData()
-                } else {
-                    ElMessage.error(result.msg)
-                }
-            })
-        } else {//添加
-            adminApi.add(admin.value).then(result => {
-                if (result.code == 0) {
-                    ElMessage.success(result.msg)
-                    dialogFormVisible.value = false
-                    loadData()
-                } else {
-                    ElMessage.error(result.msg)
-                }
-            })
-        }
-
-    }
-
-    const handleAvatarSuccess = (result, uploadFile) => {
-        admin.value.avatar = '/api/pic/' + result.data
-    }
-
-    import {useTokenStore} from "@/store/token.js";
-    // import AuthImg from "@/components/AuthImg.vue";
-    const tokenStore = useTokenStore()
-    const headers = ref({
-        //在请求头里面携带token传递到后台
-        Authorization: tokenStore.token
     })
+}
+loadData()
+
+const onSearch = () => {
+    adminQuery.page = 1
+    loadData()
+}
+
+//根据id删除
+const deleteById = (id) => {
+    ElMessageBox.confirm(
+        '您确认要删除么?',
+        '警告',
+        {
+            confirmButtonText: '确认',
+            cancelButtonText: '取消',
+            type: 'warning',
+            lockScroll: false //防止抖动
+        }
+    ).then(() => {
+        adminApi.deleteById(id).then(result => {
+            if (result.code == 0) {
+                ElMessage.success(result.msg)
+                loadData()
+            } else {
+                ElMessage.error(result.msg)
+            }
+        })
+    })
+}
+
+const ids = ref([])
+const handleSelectionChange = (rows) => {
+    console.log(rows)
+    ids.value = rows.map(row => row.id)
+    console.log(ids.value)
+}
+
+const deleteAll = () => {
+    ElMessageBox.confirm(
+        '您确认要删除么?',
+        '警告',
+        {
+            confirmButtonText: '确认',
+            cancelButtonText: '取消',
+            type: 'warning',
+            lockScroll: false //防止抖动
+        }
+    ).then(() => {
+        adminApi.deleteAll(ids.value).then(result => {
+            if (result.code == 0) {
+                ElMessage.success(result.msg)
+                loadData()
+            } else {
+                ElMessage.error(result.msg)
+            }
+        })
+    })
+}
+
+//添加、 编辑
+const dialogFormVisible = ref(false)
+const admin = ref({})
+const title = ref('')
+
+const showAddDialog = () => {
+    dialogFormVisible.value = true
+    title.value = '添加'
+    admin.value = {}
+}
+
+const showUpdateDialog = (id) => {
+    dialogFormVisible.value = true
+    title.value = '编辑'
+    admin.value = {}
+    adminApi.selectById(id).then(result => {
+        admin.value = result.data
+    })
+}
+const addOrUpdate = () => {
+    if (admin.value.id) {//编辑
+        adminApi.update(admin.value).then(result => {
+            if (result.code == 0) {
+                ElMessage.success(result.msg)
+                dialogFormVisible.value = false
+                loadData()
+            } else {
+                ElMessage.error(result.msg)
+            }
+        })
+    } else {//添加
+        adminApi.add(admin.value).then(result => {
+            if (result.code == 0) {
+                ElMessage.success(result.msg)
+                dialogFormVisible.value = false
+                loadData()
+            } else {
+                ElMessage.error(result.msg)
+            }
+        })
+    }
+
+}
+
+const handleAvatarSuccess = (result, uploadFile) => {
+    // admin.value.avatar = '/api/pic/' + result.data
+    admin.value.avatar = result.data
+}
+
+import {useTokenStore} from "@/store/token.js";
+// import AuthImg from "@/components/AuthImg.vue";
+const tokenStore = useTokenStore()
+const headers = ref({
+    //在请求头里面携带token传递到后台
+    Authorization: tokenStore.token
+})
 </script>
 
 <template>
@@ -174,7 +175,7 @@
             <!-- <el-table-column prop="avatar" label="头像"/>-->
             <el-table-column prop="avatar" label="头像">
                 <template #default="scope">
-<!--                    <AuthImg :url="scope.row.avatar" :token="headers.Authorization" style="max-height: 40px; max-width: 120px;"></AuthImg>-->
+                    <!--                    <AuthImg :url="scope.row.avatar" :token="headers.Authorization" style="max-height: 40px; max-width: 120px;"></AuthImg>-->
                     <img :src="scope.row.avatar" style="max-height: 40px; max-width: 120px;"/>
                 </template>
             </el-table-column>
@@ -220,7 +221,7 @@
                     :headers="headers"
                 >
                     <img v-if="admin.avatar" :src="admin.avatar" class="avatar"/>
-<!--                    <AuthImg v-if="admin.avatar" class="avatar" :url="admin.avatar" :token="headers.Authorization"></AuthImg>-->
+                    <!--                    <AuthImg v-if="admin.avatar" class="avatar" :url="admin.avatar" :token="headers.Authorization"></AuthImg>-->
                     <el-icon v-else class="avatar-uploader-icon">
                         <Plus/>
                     </el-icon>
@@ -239,29 +240,29 @@
 </template>
 
 <style>
-    .avatar-uploader .avatar {
-        width: 178px;
-        height: 178px;
-        display: block;
-    }
-    .avatar-uploader .el-upload {
-        border: 1px dashed var(--el-border-color);
-        border-radius: 6px;
-        cursor: pointer;
-        position: relative;
-        overflow: hidden;
-        transition: var(--el-transition-duration-fast);
-    }
+.avatar-uploader .avatar {
+    width: 178px;
+    height: 178px;
+    display: block;
+}
+.avatar-uploader .el-upload {
+    border: 1px dashed var(--el-border-color);
+    border-radius: 6px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: var(--el-transition-duration-fast);
+}
 
-    .avatar-uploader .el-upload:hover {
-        border-color: var(--el-color-primary);
-    }
+.avatar-uploader .el-upload:hover {
+    border-color: var(--el-color-primary);
+}
 
-    .el-icon.avatar-uploader-icon {
-        font-size: 28px;
-        color: #8c939d;
-        width: 178px;
-        height: 178px;
-        text-align: center;
-    }
+.el-icon.avatar-uploader-icon {
+    font-size: 28px;
+    color: #8c939d;
+    width: 178px;
+    height: 178px;
+    text-align: center;
+}
 </style>

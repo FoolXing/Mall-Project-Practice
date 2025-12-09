@@ -43,10 +43,9 @@ public class AdminController {
     public Result list(AdminQuery adminQuery) {
         //PageInfo pageInfo = adminService.list(adminQuery);
         IPage<Admin> page = (IPage<Admin>) redisTemplate.opsForValue().get("page");
-        if (ObjectUtils.isEmpty(page)) {
+
             page = adminService.list(adminQuery);
             redisTemplate.opsForValue().set("page",page);
-        }
         return Result.ok(page);
     }
 

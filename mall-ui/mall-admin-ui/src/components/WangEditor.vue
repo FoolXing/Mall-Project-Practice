@@ -50,7 +50,8 @@ const editorConfig = {
                 console.log(res)
                 // 从 res 中找到 url alt href ，然后插入图片
                 if (res.code == 0) {
-                    insertFn('/api/pic/' + res.data)
+                    // insertFn('/api/pic/' + res.data)
+                    insertFn( res.data)
                 } else {
                     ElMessage.error('插入图片异常')
                 }

@@ -110,7 +110,8 @@
 
 
     const handleAvatarSuccess = (result, uploadFile) => {
-        admin.value.avatar = '/api/pic/' + result.data
+        // admin.value.avatar = '/api/pic/' + result.data
+        admin.value.avatar = result.data
     }
 
     const headers = ref({
